@@ -19,6 +19,22 @@ services:
       traefik.tag: mhtnet
       com.centurylinklabs.watchtower.enable: "true"
 
+  portainer:
+    image: "portainer/portainer-ce:2.0.0-alpine"
+    command: -H unix:///var/run/docker.sock
+    restart: unless-stopped
+    ports:
+      - "9000"
+    networks:
+      mhtnet-network:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - portainer-data:/data
+    labels:
+      traefik.tag: mhtnet
+      traefik.http.services.portainer-svc.loadbalancer.server.port: 9000
+      traefik.http.routers.portainer.service: portainer-svc
+
   watchtower:
     image: containrrr/watchtower:1.0.2
     restart: unless-stopped
@@ -38,3 +54,6 @@ services:
 
 networks:
   mhtnet-network:
+
+volumes:
+  portainer-data:

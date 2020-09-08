@@ -17,3 +17,8 @@ services:
     labels:
       traefik.http.routers.website.entrypoints: http
       traefik.http.routers.website.rule: Host(`${DEV_HOSTNAME}`)
+
+  portainer:
+    labels:
+      traefik.http.routers.portainer.entrypoints: http
+      traefik.http.routers.portainer.rule: Host(`portainer.${DEV_HOSTNAME}`)
