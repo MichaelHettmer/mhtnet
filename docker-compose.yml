@@ -43,7 +43,7 @@ services:
     command: --interval 30 --cleanup --label-enable
     environment:
       WATCHTOWER_NOTIFICATIONS: slack
-      WATCHTOWER_NOTIFICATIONS_SLACK_HOOK_URL: "https://discordapp.com/api/webhooks/753034564183654430/OKtTQOu1G9xHRYrmcs3rpAS9awbjKOLvUq5op8IjqjuedfEXNeTK4HHAEfe5E-oVVeYN/slack"
+      WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: "https://discordapp.com/api/webhooks/753034564183654430/OKtTQOu1G9xHRYrmcs3rpAS9awbjKOLvUq5op8IjqjuedfEXNeTK4HHAEfe5E-oVVeYN/slack"
       WATCHTOWER_NOTIFICATION_SLACK_IDENTIFIER: "watchtower"
       WATCHTOWER_NOTIFICATION_SLACK_ICON_EMOJI: ":whale:"
 
