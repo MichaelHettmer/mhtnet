@@ -41,6 +41,11 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     command: --interval 30 --cleanup --label-enable
+    environment:
+      WATCHTOWER_NOTIFICATIONS: slack
+      WATCHTOWER_NOTIFICATIONS_SLACK_HOOK_URL: "https://discordapp.com/api/webhooks/753032618437509161/4dQhGQpxFJ5ahVr7I-X98x5bZeQxakZi7Ce3dWIHzgiMNxkj6D7RsWEAt9e7iTE7FXW7/slack"
+      WATCHTOWER_NOTIFICATION_SLACK_IDENTIFIER: "watchtower"
+      WATCHTOWER_NOTIFICATION_SLACK_ICON_EMOJI: ":whale:"
 
   ofelia:
     image: mcuadros/ofelia:v0.3.0
@@ -49,6 +54,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     labels:
+      ofelia.slack-webhook: "https://discordapp.com/api/webhooks/753032618437509161/4dQhGQpxFJ5ahVr7I-X98x5bZeQxakZi7Ce3dWIHzgiMNxkj6D7RsWEAt9e7iTE7FXW7/slack"
       ofelia.job-local.daily-prune-job.schedule: "@daily"
       ofelia.job-local.daily-prune-job.command: "docker system prune --volumes --all -f"
 
