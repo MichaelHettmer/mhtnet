@@ -1,9 +1,9 @@
 [[tls.certificates]]
-  certFile = "/certs/mhtnet.crt"
+  certFile = "/certs/mhtnet.pem"
   keyFile = "/certs/mhtnet.key"
 
 [tls.stores]
   [tls.stores.default]
     [tls.stores.default.defaultCertificate]
-      certFile = "/certs/mhtnet.crt"
+      certFile = "/certs/mhtnet.pem"
       keyFile = "/certs/mhtnet.key"
