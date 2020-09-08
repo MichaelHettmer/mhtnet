@@ -32,8 +32,8 @@ services:
       - portainer-data:/data
     labels:
       traefik.tag: mhtnet
-      traefik.http.services.portainer-svc.loadbalancer.server.port: 9000
       traefik.http.routers.portainer.service: portainer-svc
+      traefik.http.services.portainer-svc.loadbalancer.server.port: 9000
 
   watchtower:
     image: containrrr/watchtower:1.0.2
