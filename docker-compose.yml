@@ -17,7 +17,6 @@ services:
       mhtnet-network:
     labels:
       traefik.tag: mhtnet
-      traefik.http.routers.website.service: website-svc
       com.centurylinklabs.watchtower.enable: "true"
 
 networks:
