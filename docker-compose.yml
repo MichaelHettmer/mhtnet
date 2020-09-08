@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  proxy:
+    image: traefik:v2.1.3
+    restart: unless-stopped
+    command:
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.constraints=Label(`traefik.tag`, `mht`)"
+      - "--entrypoints.http.address=:${DEV_PORT_HTTP}"
+      - "--log.level=DEBUG"
+    ports:
+      - "${DEV_PORT_HTTP}:80"
+      - "${DEV_PORT_DASHBOARD}:8080"
+    networks:
+      mhtnet-network:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  website:
+    image: michaelhettmer/website:latest
+    hostname: website
+    restart: unless-stopped
+    networks:
+      mhtnet-network:
+    labels:
+      traefik.tag: mhtnet
+      traefik.http.routers.website.service: website-svc
+      com.centurylinklabs.watchtower.enable: "true"
+
+networks:
+  mhtnet-network:

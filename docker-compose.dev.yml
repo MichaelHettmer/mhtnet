@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  proxy:
+    command:
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.constraints=Label(`traefik.tag`, `mhtnet`)"
+      - "--entrypoints.http.address=:${DEV_PORT_HTTP}"
+      - "--log.level=DEBUG"
+    ports:
+      - "${DEV_PORT_HTTP}:80"
+      - "${DEV_PORT_DASHBOARD}:8080"
+
+  website:
+    labels:
+      traefik.http.routers.monitor.entrypoints: http
+      traefik.http.routers.frontend.rule: Host(`${DEV_HOSTNAME}`)
