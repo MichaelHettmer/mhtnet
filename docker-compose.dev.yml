@@ -15,5 +15,5 @@ services:
 
   website:
     labels:
-      traefik.http.routers.monitor.entrypoints: http
-      traefik.http.routers.frontend.rule: Host(`${DEV_HOSTNAME}`)
+      traefik.http.routers.website.entrypoints: http
+      traefik.http.routers.website.rule: Host(`${DEV_HOSTNAME}`)
