@@ -26,5 +26,15 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     command: --interval 30 --cleanup --label-enable
 
+  ofelia:
+    image: mcuadros/ofelia:v0.3.0
+    command: daemon --docker
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      ofelia.job-local.daily-prune-job.schedule: "@daily"
+      ofelia.job-local.daily-prune-job.command: "docker system prune --volumes --all -f"
+
 networks:
   mhtnet-network:
