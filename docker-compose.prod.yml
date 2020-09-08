@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  proxy:
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.constraints=Label(`traefik.tag`, `mhtnet`)"
+      - "--providers.file.directory=/config"
+      - "--providers.file.watch=true"
+      - "--entryPoints.https.address=:${PROD_PORT_HTTPS}"
+      - "--entryPoints.registry.address=:${PROD_PORT_DASHBOARD}"
+    volumes:
+      - ${PROD_PROXY_CONFIG}/:/config/:ro
+    ports:
+      - "${PROD_PORT_HTTPS}:443"
+
+  website:
+    labels:
+      traefik.http.routers.frontend.tls: "true"
+      traefik.http.routers.website.entrypoints: https
+      traefik.http.routers.website.rule: Host(`${PROD_HOSTNAME}`)
