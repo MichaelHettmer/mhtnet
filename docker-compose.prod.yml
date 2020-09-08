@@ -11,6 +11,7 @@ services:
       - "--entryPoints.registry.address=:${PROD_PORT_DASHBOARD}"
     volumes:
       - ${PROD_PROXY_CONFIG}/:/config/:ro
+      - ${PROD_PROXY_CERTS}/:/certs/:ro
     ports:
       - "${PROD_PORT_HTTPS}:443"
 
