@@ -8,7 +8,6 @@ services:
       - "--providers.file.directory=/config"
       - "--providers.file.watch=true"
       - "--entryPoints.https.address=:${PROD_PORT_HTTPS}"
-      - "--entryPoints.registry.address=:${PROD_PORT_DASHBOARD}"
     volumes:
       - ${PROD_PROXY_CONFIG}/:/config/:ro
       - ${PROD_PROXY_CERTS}/:/certs/:ro
