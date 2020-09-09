@@ -43,20 +43,28 @@ services:
     command: --interval 30 --cleanup --label-enable
     environment:
       WATCHTOWER_NOTIFICATIONS: slack
-      WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: "https://discordapp.com/api/webhooks/753034564183654430/OKtTQOu1G9xHRYrmcs3rpAS9awbjKOLvUq5op8IjqjuedfEXNeTK4HHAEfe5E-oVVeYN/slack"
-      WATCHTOWER_NOTIFICATION_SLACK_IDENTIFIER: "watchtower"
-      WATCHTOWER_NOTIFICATION_SLACK_ICON_EMOJI: ":whale:"
+      WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: ${WATCHTOWER_SLACK_HOOK_URL}
+      WATCHTOWER_NOTIFICATION_SLACK_IDENTIFIER: "Watchtower"
 
   ofelia:
     image: mcuadros/ofelia:v0.3.0
     command: daemon --docker
     restart: unless-stopped
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      ofelia.slack-webhook: "https://discordapp.com/api/webhooks/753032618437509161/4dQhGQpxFJ5ahVr7I-X98x5bZeQxakZi7Ce3dWIHzgiMNxkj6D7RsWEAt9e7iTE7FXW7/slack"
-      ofelia.job-local.daily-prune-job.schedule: "@daily"
-      ofelia.job-local.daily-prune-job.command: "docker system prune --volumes --all -f"
+      ofelia.slack-webhook: ${OFELIA_SLACK_HOOK_URL}
+      ofelia.job-run.gc.schedule: "@daily"
+      ofelia.job-run.gc.container: "mhtnet_gc"
+
+  gc:
+    image: docker
+    depends_on:
+      - ofelia
+    container_name: mhtnet_gc
+    entrypoint: docker system prune -f
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
 networks:
   mhtnet-network:
