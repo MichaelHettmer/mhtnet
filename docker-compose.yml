@@ -36,7 +36,7 @@ services:
       traefik.http.services.portainer-svc.loadbalancer.server.port: 9000
 
   watchtower:
-    image: containrrr/watchtower:1.0.3
+    image: containrrr/watchtower:1.1.6
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
