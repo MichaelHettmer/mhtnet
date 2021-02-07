@@ -20,7 +20,7 @@ services:
       com.centurylinklabs.watchtower.enable: "true"
 
   portainer:
-    image: "portainer/portainer-ce:2.0.0-alpine"
+    image: "portainer/portainer-ce:2.1.1-alpine"
     command: -H unix:///var/run/docker.sock
     restart: unless-stopped
     ports:
